@@ -14,7 +14,7 @@ if(APPLE)
 
     target_sources(macfanctl PRIVATE "src/libmacfanctl/impl/macos/macos_smc.c")
 
-    target_link_libraries(
+    target_link_libraries(macfanctl PRIVATE 
         ${COREFOUNDATION_LIB}
         ${IOKIT_LIB}
     )
@@ -39,8 +39,8 @@ elseif(WIN32)
     target_sources(macfanctld PRIVATE "src/impl/win32/win32_signal.c" "src/impl/win32/log/win32_log.c")
 endif()
 
-target_compile_options(macfanctld PRIVATE -ffunction-sections -fdata-sections)
-target_link_options(macfanctld PRIVATE -Wl,-s -Wl,-S)
+#target_compile_options(macfanctld PRIVATE -ffunction-sections -fdata-sections)
+#target_link_options(macfanctld PRIVATE -Wl,-s -Wl,-S)
 
 target_compile_features(macfanctld PRIVATE c_std_17)
 

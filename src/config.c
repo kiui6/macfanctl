@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <errno.h>
+
+#include <log/log.h>
 
 #ifdef _WIN32
     #define CONFIG_PATH "C:\\ProgramData\\macfanctld\\config.ini"
@@ -42,7 +45,7 @@ static void parse_config_line(const char* line, Config* cfg, CurveGraph* graph) 
     if (sscanf(line, "Sensor=%4s", key) == 1) {
         strcpy(cfg->sensorKey, key);
     } else if (sscanf(line, "MinRPM=%d", &val) == 1) {
-        cfg->minRPM = (uint16_t)val;
+        cfg->minRPM = val > 2000 ? (uint16_t)val : 2000;
     } else if (sscanf(line, "MaxRPM=%d", &val) == 1) {
         cfg->maxRPM = (uint16_t)val;
     } else if (sscanf(line, "IntervalMs=%d", &val) == 1) {
@@ -62,7 +65,7 @@ bool read_config(Config* cfg, CurveGraph* graph) {
 
     char* pathStr = malloc(pathSize);
     if (!pathStr) {
-        perror("Failed to allocate memory for config path");
+        logerr("Failed to allocate config path");
         return false;
     }
 
@@ -72,7 +75,7 @@ bool read_config(Config* cfg, CurveGraph* graph) {
     free(pathStr);
 
     if(!file) {
-        perror("Failed to open config file");
+        logerr("Failed to open config file: %s", strerror(errno));
         return false;
     }
 
