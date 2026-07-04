@@ -2,9 +2,12 @@
 #define _CURVE_POINT_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
-#define MAX_CURVE_POINTS 32
+#ifndef MAX_CURVE_POINTS
+#   define MAX_CURVE_POINTS 16
+#endif
 
 typedef struct {
     uint16_t temperature;
@@ -21,7 +24,7 @@ CurveGraph create_curve_graph();
 
 int compare_curve_points(const void* a, const void* b);
 
-void insert_curve_point(CurveGraph* graph, CurvePoint point);
+bool insert_curve_point(CurveGraph* graph, CurvePoint point);
 
 void finalize_curve_graph(CurveGraph* graph);
 

@@ -4,7 +4,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum macOS version for d
 
 project ("macfanctl")
 
-add_library(macfanctl STATIC "src/libmacfanctl/macfanctl.c")
+add_library(macfanctl STATIC "src/libmacfanctl/macfanctl.c" "src/libmacfanctl/point_curve.c")
 target_include_directories(macfanctl PRIVATE "include")
 target_compile_features(macfanctl PRIVATE c_std_17)
 
@@ -26,7 +26,7 @@ elseif(WIN32)
 endif()
 
 # Daemon executable
-add_executable(macfanctld "src/main.c" "src/config.c" "src/curve_point.c" "src/interpolate.c")
+add_executable(macfanctld "src/main.c" "src/config.c" "src/interpolate.c" "src/globals.c")
 
 target_link_libraries(macfanctld PRIVATE macfanctl)
 

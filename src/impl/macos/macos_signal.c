@@ -6,7 +6,7 @@
 #include <globals.h>
 
 static void handle_signals(int sig) {
-    g_running = 0;
+    gRunning = 0;
 }
 
 void setup_sig_handlers(void) {

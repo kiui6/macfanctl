@@ -1,4 +1,4 @@
-#include "curve_point.h"
+#include <macfanctl/point_curve.h>
 
 CurveGraph create_curve_graph() {
     return (CurveGraph){0};
@@ -10,13 +10,14 @@ int compare_curve_points(const void* a, const void* b) {
     return (int)pa->temperature - (int)pb->temperature;
 }
 
-void insert_curve_point(CurveGraph* graph, CurvePoint point) {
-    if (graph->uCurvePoints < MAX_CURVE_POINTS) {
-        graph->pCurvePoints[graph->uCurvePoints] = point;
-        graph->uCurvePoints = graph->uCurvePoints + 1;
-    } else {
-        // Log error
+bool insert_curve_point(CurveGraph* graph, CurvePoint point) {
+    if(graph->uCurvePoints >= MAX_CURVE_POINTS) {
+        return false;
     }
+
+    graph->pCurvePoints[graph->uCurvePoints] = point;
+    graph->uCurvePoints = graph->uCurvePoints + 1;
+    return true;
 }
 
 void finalize_curve_graph(CurveGraph* graph) {

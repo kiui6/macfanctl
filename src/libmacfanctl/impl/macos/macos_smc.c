@@ -1,4 +1,4 @@
-#include <smc.h>
+#include <macfanctl/smc/smc.h>
 
 #include <IOKit/IOKitLib.h>
 

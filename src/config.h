@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "curve_point.h"
+#include <macfanctl/point_curve.h>
 
 typedef struct {
     char sensorKey[5];

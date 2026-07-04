@@ -10,8 +10,7 @@
 #include "log/log.h"
 
 #include "globals.h"
-#include "signal.h"
-#include "curve_point.h"
+#include "signals.h"
 #include "config.h"
 #include "interpolate.h"
 
