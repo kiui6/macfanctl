@@ -1,0 +1,19 @@
+# Mac Fan Control Daemon Config
+# C:\\ProgramData\\macfanctld\\config.ini
+# "/Library/Application Support/macfanctld/config"
+# "/etc/macfanctld/config"
+# Lines starting with # are comments
+
+Sensor=TC0P
+MinRPM=2000
+MaxRPM=6200
+IntervalMs=250
+RampDownMs=5000
+
+# Curve: Temperature(C) = RPM, RampUpMs
+45=2000,5000
+55=2500,4000
+60=3000,3000
+70=4000,2000
+80=6200,500
+90=6200,0
