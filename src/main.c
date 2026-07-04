@@ -4,10 +4,12 @@
 #include <string.h>
 #include <sys/time.h>
 
-#include <smc.h>
+#include <macfanctl/macfanctl.h>
+#include <macfanctl/smc/smc.h>
 
 #include "log/log.h"
 
+#include "globals.h"
 #include "signal.h"
 #include "curve_point.h"
 #include "config.h"
@@ -34,7 +36,7 @@ int main(int argc, char* argv[]) {
 
     loginfo("macfanctld started!");
     
-    // Find SMC
+    // Initialize libmacfanctl
 
     // Main loop
     uint16_t currentSpeed = cfg.minRPM;
@@ -44,8 +46,8 @@ int main(int argc, char* argv[]) {
 
     struct timeval timeValue;
 
-    bool bRunning = true;
-    while(bRunning) {
+    gRunning = 1;
+    while(gRunning) {
         // Query sensors
         sp78_t temperature = 0;
         bool smcReadSuccess = smc_read_sp78(cfg.sensorKey, &temperature);

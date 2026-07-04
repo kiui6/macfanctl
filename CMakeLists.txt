@@ -4,7 +4,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum macOS version for d
 
 project ("macfanctl")
 
-add_library(macfanctl STATIC)
+add_library(macfanctl STATIC "src/libmacfanctl/macfanctl.c")
 target_include_directories(macfanctl PRIVATE "include")
 target_compile_features(macfanctl PRIVATE c_std_17)
 

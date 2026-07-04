@@ -1,5 +1,5 @@
-#ifndef _SIGNAL_H
-#define _SIGNAL_H
+#ifndef SIGNALS_H
+#define SIGNALS_H
 
 void setup_sig_handlers(void);
 
