@@ -72,7 +72,7 @@ bool read_config(Config* cfg, CurveGraph* graph) {
     free(pathStr);
 
     if(!file) {
-        perror("Failed to allocate memory for config path");
+        perror("Failed to open config file");
         return false;
     }
 

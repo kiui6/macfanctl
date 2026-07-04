@@ -4,10 +4,13 @@
 
 #include <smc.h>
 
+#include "signal.h"
 #include "curve_point.h"
 #include "config.h"
 
 int main() {
+    setup_sig_handlers();
+
     // Read config
     Config cfg = create_config();
     CurveGraph graph = create_curve_graph();
@@ -16,8 +19,6 @@ int main() {
         // Log error
     }
     
-    printf("MinRPM: %u", cfg.minRPM);
-
     // Find SMC
 
     uint16_t currentSpeed = 0;
