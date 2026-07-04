@@ -14,6 +14,8 @@
 #include "config.h"
 #include "interpolate.h"
 
+#define MAX_FANS 8
+
 int main(int argc, char* argv[]) {
     bool foreground = (argc > 1 && strcmp(argv[1], "-f") == 0);
 
@@ -29,6 +31,7 @@ int main(int argc, char* argv[]) {
         logerr("Failed to read config, using default settings.");
     }
 
+    // For safety we must not allow minRPM < 2000
     if(cfg.minRPM < 2000) {
         cfg.minRPM = 2000;
     }
@@ -36,6 +39,18 @@ int main(int argc, char* argv[]) {
     loginfo("macfanctld started!");
     
     // Initialize libmacfanctl
+    if(!macfanctl_init()) {
+        logerr("Failed to initialize libmacfanctl.");
+        return -1;
+    }
+
+    // Prepare handles
+    macfanctl_sensor_t* sensor = macfanctl_sensor_open(MACFANCTL_SENSOR_CPU_CORE);
+    macfanctl_fan_index_t fanCount = macfanctl_get_fan_count();
+    macfanctl_fan_t *fans[MAX_FANS];
+    for(int i = 0; i < fanCount; i++) {
+        fans[i] = macfanctl_fan_open(i);
+    }
 
     // Main loop
     uint16_t currentSpeed = cfg.minRPM;
@@ -102,6 +117,7 @@ int main(int argc, char* argv[]) {
         usleep(cfg.sleepTimeMiliseconds * 1000);
     }
 
+    macfanctl_shutdown();
     logger_shutdown();
 
     return 0;

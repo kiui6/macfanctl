@@ -19,11 +19,7 @@ typedef enum {
     MACFANCTL_SENSOR_COUNT
 } macfanctl_sensor_id_t;
 
-typedef struct {
-    macfanctl_sensor_id_t id;
-    uint32_t refCount;
-    const char key[5];
-} macfanctl_sensor_t;
+typedef struct macfanctl_sensor macfanctl_sensor_t;
 
 macfanctl_sensor_t* macfanctl_sensor_open(macfanctl_sensor_id_t id);
 void macfanctl_sensor_close(macfanctl_sensor_t* sensor);
@@ -36,20 +32,13 @@ float macfanctl_sensor_read_celcius(macfanctl_sensor_t* sensor);
 
 // Output Fans
 //------------------//
-typedef enum {
-    MACFANCTL_FAN_0,
-    MACFANCTL_FAN_1,
-    MACFANCTL_FAN_2,
-    MACFANCTL_FAN_3
-} macfanctl_fan_id_t;
+typedef uint8_t macfanctl_fan_index_t;
 
-typedef struct {
-    macfanctl_fan_id_t id;
-    uint32_t refCount;
-    const char key[5];
-} macfanctl_fan_t;
+typedef struct macfanctl_fan macfanctl_fan_t;
 
-macfanctl_fan_t* macfanctl_fan_open(macfanctl_fan_id_t id);
+macfanctl_fan_index_t macfanctl_get_fan_count(void);
+
+macfanctl_fan_t* macfanctl_fan_open(macfanctl_fan_index_t id);
 void macfanctl_fan_close(macfanctl_fan_t* fan);
 
 bool macfanctl_fan_set_rpm(macfanctl_fan_t* fan, uint16_t rpm);
