@@ -26,7 +26,7 @@ elseif(WIN32)
 endif()
 
 # Daemon executable
-add_executable(macfanctld "src/main.c" "src/config.c" "src/curve_point.c")
+add_executable(macfanctld "src/main.c" "src/config.c" "src/curve_point.c" "src/interpolate.c")
 
 target_link_libraries(macfanctld PRIVATE macfanctl)
 

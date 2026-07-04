@@ -108,10 +108,12 @@ bool read_config(Config* cfg, CurveGraph* graph) {
 
     if (ferror(file)) {
         perror("Error reading config file");
+        finalize_curve_graph(graph);
         fclose(file);
         return false;
     }
-
+    
+    finalize_curve_graph(graph);
     fclose(file);
     return true;
 }

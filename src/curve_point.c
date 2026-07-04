@@ -22,3 +22,13 @@ void insert_curve_point(CurveGraph* graph, CurvePoint point) {
 void finalize_curve_graph(CurveGraph* graph) {
     qsort(graph->pCurvePoints, graph->uCurvePoints, sizeof(CurvePoint), compare_curve_points);
 }
+
+size_t get_floor_curve_point_from_graph(CurveGraph* graph, uint16_t temperature) {
+    for(int i = 0; i < graph->uCurvePoints; i++) {
+        if(graph->pCurvePoints[i].temperature > temperature) {
+            return i;
+        }
+    }
+
+    return graph->uCurvePoints;
+}

@@ -25,4 +25,6 @@ void insert_curve_point(CurveGraph* graph, CurvePoint point);
 
 void finalize_curve_graph(CurveGraph* graph);
 
+size_t get_floor_curve_point_from_graph(CurveGraph* graph, uint16_t temperature);
+
 #endif
